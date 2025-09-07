@@ -32,7 +32,7 @@ const customResource = {
 const main = async () => {
     try {
         // create service from YAML
-        const createCrResponse = await k8sCrdApi.createNamespacedCustomObject({
+        const createCrResponse = await k8sCrApi.createNamespacedCustomObject({
             group,
             version,
             namespace, 
@@ -43,17 +43,15 @@ const main = async () => {
         console.log(createCrResponse);
 
         // list all custom resources in namespace
-        const listCrResponse = await k8sCrdApi.listClusterCustomObject({namespace, group, plural, version});
+        const listCrResponse = await k8sCrApi.listClusterCustomObject({namespace, group, plural, version});
         console.log(listCrResponse);
 
         // get specific custom resource
-        // you will get error at this status with error message: Unknown API Status Code!
-        const getCrResponse = await k8sCrdApi.getClusterCustomObject({group, version, plural, namespace, name:customResource.metadata.name});
+        const getCrResponse = await k8sCrApi.getNamespacedCustomObject({group, version, plural, namespace, name:customResource.metadata.name});
         console.log(getCrResponse);
 
         // delete specific custom resource
-        // you will get error at this status with error message: Unknown API Status Code!
-        const deleteCrResponse = await k8sCrdApi.deleteClusterCustomObject({group, version, plural, namespace, name:customResource.metadata.name});
+        const deleteCrResponse = await k8sCrApi.deleteNamespacedCustomObject({group, version, plural, namespace, name:customResource.metadata.name});
         console.log(deleteCrResponse);
     } catch (err) {
         console.log(err);
