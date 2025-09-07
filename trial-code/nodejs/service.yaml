@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: trial
+spec:
+  selector:
+    name: proxy
+  ports:
+  - name: tcp-port
+    protocol: TCP
+    port: 80
+    targetPort: 9376
